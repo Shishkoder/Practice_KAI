@@ -1,16 +1,52 @@
 {% extends 'index_base.html' %}
 {% block body %}
-    {{ super() }}
-    <div class="container">
-        <div class="px-4 py-5 my-5 text-center">
+{{ super() }}
+<div class="container">
+  <div class="px-4 py-5 my-5 text-center">
     <h1 class="display-5 fw-bold">Зашифруем любое сообщение 😉</h1>
     <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4">Мы шифруем ваши сообщения, с помощью асинхронного алгоритма шифрования RSA</p>
+      <p class="lead mb-4">Мы шифруем ваши сообщения, с помощью асинхронного алгоритма шифрования RSA</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <a href="#" class="btn btn-primary btn-lg px-4 gap-3">Зашифровать</a>
-          <a href="#" class="btn btn-outline-secondary btn-lg px-4 gap-3">Расшифровать</a>
+        <a href="/profile" class="btn btn-primary btn-lg px-4 gap-3">Зашифровать</a>
+        <a href="/profile" class="btn btn-outline-secondary btn-lg px-4 gap-3">Расшифровать</a>
       </div>
     </div>
   </div>
+  {% for cat, msg in get_flashed_messages(True) %}
+  <div class="alert alert-{{ cat }} alert-dismissible fade show" role="alert">
+    {{ msg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+<!-- <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+  <div class="row align-items-center g-lg-5 py-5">
+    <div class="col-lg-7 text-center text-lg-start">
+      <h1 class="display-4 fw-bold lh-1 mb-3">Авторизация</h1>
+      <p class="col-lg-10 fs-4">Для того, чтобы начать пользоваться данным сервисом, вам необходимо войти в аккаунт
+      </p>
     </div>
+    <div class="col-md-10 mx-auto col-lg-5">
+      <form class="p-4 p-md-5 border rounded-3 bg-light">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Пароль</label>
+        </div>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Запомнить меня
+          </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+        <hr class="my-4">
+        <small class="text-muted">Нажимая войти, вы соглашаетесь с условиями использования.</small>
+      </form>
+    </div>
+  </div> -->
+</div>
+</div>
 {% endblock %}
