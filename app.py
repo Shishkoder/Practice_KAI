@@ -1,11 +1,12 @@
 import sqlite3
 import os
 
-from flask_login import login_required
 
 from DataBase import fDataBase
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from UserLogin import UserLogin
 
 DATABASE = "databaseKAI.db"
 SECRET_KEY = "QCQWCwfqw23r*7237^^23n2o3fqwc32"
@@ -24,14 +25,33 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, "databaseKAI.db")))
 
 
 @app.route('/')
-@app.route('/main_page')
+@app.route('/main_page', methods=['POST', 'GET'])
 def main_page(): 
     return render_template('index.html', title="Главная страница")
 
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    return render_template('register.html', title="Регситрация нового пользователя")
+    if request.method == 'POST':
+        hash = generate_password_hash(password=request.form['Password'])
+        result = dbase.AddUser(first_name=request.form['firstName'], last_name=request.form['lastName'],
+                               email_address=request.form['email'], username=request.form['username'],
+                               password=hash, public_key=1, private_key=1)
+        if result == "Такой пользователь уже существует":
+            flash("Такой пользователь уже существует",category="danger")
+        elif result == "Ошибка в записи бд":
+            flash("Ошибка создания аккаунта", category="danger")
+        else:
+            return redirect(url_for('main_page'))
+    return render_template('register.html', title="Регистрация нового пользователя")
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == "POST":
+        user = dbase.getUserByEmail(request.form['email'])
+        # if user and check_password_hash()
+    return render_template('login.html', title=Авторизация)
 
 
 @app.route('/profile')
@@ -40,11 +60,17 @@ def profile():
     return "Профиль"
 
 
+@app.errorhandler(404)
+def error_404(error):
+    return "Данная страница не найдена"
+
+
 @app.before_request
 def before_request():
     global dbase
     db = get_db()
     dbase = fDataBase(db)
+
 
 def connect_db():
     connection = sqlite3.connect(app.config['DATABASE'])
