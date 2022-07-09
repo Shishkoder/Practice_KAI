@@ -85,12 +85,22 @@ def login():
 @app.route('/Encrypt',  methods=['POST', 'GET'])
 @login_required
 def Encrypt():
+    if request.method == "POST":
+        answer = user_rsa.send_message(request.form['message'], [request.form['OneKey'], request.form['TwoKey']])
+        return render_template("encrypt.html", title="Зашифровать сообщение",
+                               us=dbase.getUserInfo(current_user.get_id()),
+                               answer=f"{answer}")
     return render_template("encrypt.html", title="Зашифровать сообщение", us=dbase.getUserInfo(current_user.get_id()))
 
 
 @app.route('/decipher',  methods=['POST', 'GET'])
 @login_required
 def decipher():
+    if request.method == "POST":
+        answer = user_rsa.show_message(request.form['message'], [request.form['OneKey'], request.form['TwoKey']])
+        return render_template("decipher.html", title="Расшифровать сообщение",
+                               us=dbase.getUserInfo(current_user.get_id()),
+                               answer=answer)
     return render_template("decipher.html", title="Расшифровать сообщение", us=dbase.getUserInfo(current_user.get_id()))
 
 
@@ -98,6 +108,7 @@ def decipher():
 @login_required
 def profile():
     return f"user_info {current_user.get_id()}"
+
 
 @app.route('/logout')
 @login_required

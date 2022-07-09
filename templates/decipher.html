@@ -21,18 +21,24 @@
       <p class="lead">Ваш приватный ключ - {{ us.PRIVATE_KEY }}</p>
       <hr class="my-4">
     </div>
+    <div class="container text-center">
+        {% if answer %}
+        <h2>Ваше сообщение</h2>
+        <p>{{ answer }}</p>
+        {% endif %}
+    </div>
     <div class="container">
         <div>
-            <form class="form-inline" method="post" action="/Encrypt">
+            <form class="form-inline" method="post" action="/decipher" onsubmit="return CheckEncForm(this);">
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label for="subject" class="form-label">1 часть публичного ключа</label>
-                        <input type="text" class="form-control" id="NameProject" placeholder="" name="OneKey">
+                        <label for="subject" class="form-label">1 часть приватного ключа</label>
+                        <input type="text" class="form-control" id="OneKey" placeholder="" name="OneKey">
                     </div>
 
                     <div class="col-sm-6">
-                        <label for="subject" class="form-label">2 часть публичного ключа</label>
-                        <input type="text" class="form-control" id="CategoryProject" name="TwoKey">
+                        <label for="subject" class="form-label">2 часть приватного ключа</label>
+                        <input type="text" class="form-control" id="TwoKey" name="TwoKey">
                     </div>
 
                     <div class="col-12">
@@ -45,4 +51,5 @@
                   </form>
               </div>
     </div>
+        <script src='../static/js/main.js'></script>
 {% endblock %}

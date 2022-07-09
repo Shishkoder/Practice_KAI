@@ -58,3 +58,25 @@ function CheckLoginForm(element) {
         return false;
     }
 };
+
+function CheckEncForm(element){
+    var OneKey = document.getElementById('OneKey').value;
+    var TwoKey = document.getElementById('TwoKey').value;
+    var message = document.getElementById('message').value;
+
+    if(Number(OneKey.length) > 0){
+        if(Number(TwoKey.length) > 0){
+            if(Number(message.length) > 0){
+                return true;
+            }
+        }else {
+            console.error("Пользователь не ввел вторую часть ключа");
+            alert("Вы не ввели вторую часть ключа");
+            return false;
+        }
+    }else{
+        console.error("Пользователь не ввел первую часть ключа");
+        alert("Вы не ввели первую часть ключа");
+        return false;
+    }
+}

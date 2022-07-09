@@ -7,7 +7,7 @@ class Params:
     __UNTILL: int = 4096
 
     __PRIME_DIGITS_TUPLE: tuple = tuple(digit for digit in range(__UNTILL + 1) if isprime(digit))
-    __LATIN_AND_SPEC_SYMBOLS: str = printable + chr(8470)
+    __LATIN_AND_SPEC_SYMBOLS: str = printable + chr(8470) + '—'
     __CYRILLIC_SYMBOLS_TUPLE: tuple = \
         tuple((lambda code: chr(code))(code) for code in range(1040, 1104)) + \
         (chr(1025), chr(1105))
