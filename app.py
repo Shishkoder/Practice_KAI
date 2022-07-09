@@ -85,6 +85,7 @@ def login():
 @app.route('/Encrypt',  methods=['POST', 'GET'])
 @login_required
 def Encrypt():
+    """ Зашифровать данные """
     if request.method == "POST":
         answer = user_rsa.send_message(request.form['message'], [request.form['OneKey'], request.form['TwoKey']])
         return render_template("encrypt.html", title="Зашифровать сообщение",
@@ -96,6 +97,7 @@ def Encrypt():
 @app.route('/decipher',  methods=['POST', 'GET'])
 @login_required
 def decipher():
+    """ Расшифровать данные """
     if request.method == "POST":
         answer = user_rsa.show_message(request.form['message'], [request.form['OneKey'], request.form['TwoKey']])
         return render_template("decipher.html", title="Расшифровать сообщение",
