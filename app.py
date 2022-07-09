@@ -77,7 +77,7 @@ def login():
             userLogin = UserLogin().create(user)
             rememberMe = True if request.form.get('checkbox') else False
             login_user(userLogin, remember=rememberMe)
-            return redirect(request.args.get('next') or url_for('profile'))
+            return redirect(request.args.get('next') or url_for('main_page'))
 
         flash('Неверный логин или пароль',category="danger")
     return render_template('login.html', title="Авторизация")
