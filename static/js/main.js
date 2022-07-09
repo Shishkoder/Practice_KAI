@@ -1,7 +1,4 @@
 function CheckForm(element) {
-    /* 
-        * Данная функция выполняет валидацию данных в регистрационной форме
-    */
     var FirstName = document.getElementById('FirstName').value;
     var LastName = document.getElementById('LastName').value;
     var UserName = document.getElementById('UserName').value;
@@ -43,6 +40,21 @@ function CheckForm(element) {
     else{
         console.error("Пользователь не ввел свое имя");
         alert("Вы оставили поле Имя пустым");
+        return false;
+    }
+};
+
+function CheckLoginForm(element) {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+    if(Number(email.length) > 0){
+        if(Number(password.length) > 0){
+            return true;
+        }
+    }else{
+        console.error("Пользователь не ввел логин")
+        alert("Вы оставили поле email пустым")
         return false;
     }
 };
