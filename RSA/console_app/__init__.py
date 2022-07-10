@@ -1,1 +1,1 @@
-from ..console_app.client import User
+from console_app.client import User
